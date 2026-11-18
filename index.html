@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>아 맞다! - 해외 여행 준비물 체크리스트</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-viewport">
+    
+    <!-- Toast Notifications Hub -->
+    <div id="toast-hub" class="toast-container"></div>
+
+    <!-- =========================================
+         SCREEN 1: FIRST / INTRO SCREEN
+         ========================================= -->
+    <div id="view-intro" class="view active">
+      <div class="intro-hero">
+        <div class="intro-badge">
+          <span>✈️</span>
+          <span>스마트 여행 가이드</span>
+        </div>
+
+        <div class="intro-illustration">
+          <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 18H2a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2z"></path>
+            <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            <line x1="12" y1="11" x2="12" y2="15"></line>
+            <line x1="9" y1="13" x2="15" y2="13"></line>
+            <path d="M6 18v2"></path>
+            <path d="M18 18v2"></path>
+          </svg>
+        </div>
+
+        <h1 class="intro-title">
+          <span>아</span>
+          <span class="highlight">맞다!</span>
+        </h1>
+        <p class="intro-subtitle">
+          해외 여행 준비물 체크리스트 생성 웹서비스
+        </p>
+
+        <div class="intro-features">
+          <div class="intro-feature-pill">
+            <span class="pill-icon">📍</span>
+            <div>
+              <div class="pill-main">대륙·국가별 전 세계 여행지</div>
+              <div class="pill-sub">빠른 검색과 카테고리 탐색</div>
+            </div>
+          </div>
+          <div class="intro-feature-pill">
+            <span class="pill-icon">🌤️</span>
+            <div>
+              <div class="pill-main">여행 기간 현지 기후 & 기온 맞춤</div>
+              <div class="pill-sub">1월부터 12월까지 정확한 월별 날씨 가이드</div>
+            </div>
+          </div>
+          <div class="intro-feature-pill">
+            <span class="pill-icon">✅</span>
+            <div>
+              <div class="pill-main">빈틈없는 세부 체크리스트</div>
+              <div class="pill-sub">여권부터 현지 전압 어댑터까지 완벽 대비</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="intro-footer">
+        <button class="btn-primary" id="btn-start-intro">
+          <span>짐싸기 시작!</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+
+    <!-- =========================================
+         SCREEN 2: INPUT SCREEN
+         ========================================= -->
+    <div id="view-input" class="view">
+      <header class="app-header">
+        <div class="app-header-title">
+          <span class="brand-text">아 맞다!</span>
+          <span class="brand-sub">여행 조건 설정</span>
+        </div>
+        <button class="btn-secondary btn-sm" id="btn-home-from-input">처음으로</button>
+      </header>
+
+      <div class="input-content">
+        <!-- Section 1: Travel Destination -->
+        <div class="card" id="card-destination">
+          <div class="section-title">
+            <span>📍</span>
+            <span>어디로 떠나시나요?</span>
+          </div>
+          <p class="section-desc">여행하실 도시를 검색하거나 아래 대륙별 카테고리에서 선택하세요.</p>
+
+          <!-- Search Bar -->
+          <div class="search-box">
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="destination-search-input" class="search-input" placeholder="도시 또는 국가 검색 (예: 서울, 도쿄, 파리, 다낭...)" autocomplete="off">
+            <button id="search-clear-btn" class="search-clear">✕</button>
+          </div>
+
+          <!-- Dynamic Search Results Dropdown -->
+          <div id="search-results-list" class="search-results-list"></div>
+
+          <!-- Continent Navigation Tabs -->
+          <div class="continent-tabs" id="continent-tabs-container">
+            <!-- Rendered by JS -->
+          </div>
+
+          <!-- Continent -> Country -> City Accordion -->
+          <div id="destinations-browser" class="category-group">
+            <!-- Rendered by JS -->
+          </div>
+
+          <!-- Selected Destination Display Badge -->
+          <div id="selected-dest-card" class="selection-summary-card" style="display: none;">
+            <div class="summary-info">
+              <span id="summary-flag" class="summary-flag">🌏</span>
+              <div>
+                <div id="summary-dest-name" class="summary-text-main">도시를 선택하세요</div>
+                <div id="summary-dest-path" class="summary-text-sub">대륙 > 국가 > 도시</div>
+              </div>
+            </div>
+            <button class="btn-secondary btn-sm" id="btn-change-dest">변경</button>
+          </div>
+        </div>
+
+        <!-- Section 2: Travel Dates Calendar -->
+        <div class="card" id="card-dates">
+          <div class="section-title">
+            <span>📅</span>
+            <span>언제 떠나시나요?</span>
+          </div>
+          <p class="section-desc">항공권 예매하듯이 캘린더에서 출발일과 귀국일을 선택하세요.</p>
+
+          <div class="calendar-container">
+            <!-- Calendar Navigation Header -->
+            <div class="calendar-header">
+              <button class="cal-nav-btn" id="cal-prev-month">❮</button>
+              <div class="calendar-title" id="cal-month-title">2024년 12월</div>
+              <button class="cal-nav-btn" id="cal-next-month">❯</button>
+            </div>
+
+            <!-- Weekdays -->
+            <div class="calendar-weekdays">
+              <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+            </div>
+
+            <!-- Days Grid -->
+            <div class="calendar-days-grid" id="cal-days-grid">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <!-- Date Summary Box -->
+          <div class="date-summary-box">
+            <div class="date-slot">
+              <span class="date-slot-label">🛫 출발일</span>
+              <span class="date-slot-val" id="display-departure">선택 전</span>
+            </div>
+            <div class="duration-badge" id="display-duration">일정 선택</div>
+            <div class="date-slot text-right">
+              <span class="date-slot-label">🛬 귀국일</span>
+              <span class="date-slot-val" id="display-return">선택 전</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Sticky CTA Bar -->
+      <div class="bottom-bar">
+        <button class="btn-primary" id="btn-generate-checklist">
+          <span>짐싸기 시작!</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"></path>
+            <path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+
+    <!-- =========================================
+         SCREEN 3: RESULTS SCREEN
+         ========================================= -->
+    <div id="view-result" class="view">
+      <nav class="result-nav">
+        <button class="result-back-btn" id="btn-back-to-input">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          <span>여행 조건 수정</span>
+        </button>
+        <div class="result-nav-title">준비물 체크리스트</div>
+        <button class="btn-secondary btn-sm" id="btn-print-checklist">인쇄/PDF</button>
+      </nav>
+
+      <div class="result-content">
+        <!-- Weather & City Hero Banner -->
+        <div class="hero-banner">
+          <div class="hero-top">
+            <div>
+              <div class="hero-dest-flag" id="result-hero-flag">🇰🇷</div>
+              <div class="hero-dest-name" id="result-hero-title">대한민국 서울</div>
+              <div class="hero-dest-sub" id="result-hero-subtitle">아시아 > 대한민국</div>
+            </div>
+            <div class="hero-date-pill" id="result-hero-dates">
+              <span>📅</span>
+              <span id="result-hero-duration">5박 6일</span>
+            </div>
+          </div>
+
+          <!-- Climate & Weather Summary Box -->
+          <div class="hero-weather-box">
+            <div class="weather-row-meta">
+              <div class="weather-temp-badge">
+                <span id="result-weather-icon">❄️</span>
+                <span id="result-weather-temp">평균 -5°C</span>
+              </div>
+              <div class="weather-status-chip" id="result-weather-chip">한파/눈</div>
+            </div>
+            <div class="weather-desc-text" id="result-weather-desc">
+              해당 월의 기온과 기후, 도시 소개가 이곳에 표시됩니다.
+            </div>
+            <div class="weather-plug-tip">
+              <span>🔌</span>
+              <span id="result-weather-plug">현지 전압 정보</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Packing Progress Bar -->
+        <div class="progress-card">
+          <div class="progress-header">
+            <div class="progress-title">
+              <span>🎒</span>
+              <span>짐싸기 진행률</span>
+            </div>
+            <div class="progress-percent" id="progress-percent-label">0%</div>
+          </div>
+          <div class="progress-track">
+            <div class="progress-bar" id="progress-bar-fill"></div>
+          </div>
+          <div class="progress-subtext">
+            <span id="progress-count-label">0 / 0 개 챙김</span>
+            <span id="progress-cheer-message">시작해 볼까요?</span>
+          </div>
+        </div>
+
+        <!-- Controls: Filter & Quick Actions -->
+        <div class="checklist-controls">
+          <button class="control-chip active" data-filter="all" id="filter-all">전체보기 (<span id="count-all">0</span>)</button>
+          <button class="control-chip" data-filter="unpacked" id="filter-unpacked">미완료만 (<span id="count-unpacked">0</span>)</button>
+          <button class="control-chip" data-filter="packed" id="filter-packed">완료된 항목 (<span id="count-packed">0</span>)</button>
+          <button class="control-chip" id="btn-toggle-all">전체 완료</button>
+          <button class="control-chip" id="btn-copy-list">📋 복사하기</button>
+        </div>
+
+        <!-- Dynamic Checklist Groups Container -->
+        <div id="checklist-groups-container">
+          <!-- Rendered dynamically by category -->
+        </div>
+
+        <!-- Custom Item Adder -->
+        <div class="add-custom-box">
+          <div class="add-custom-title">
+            ➕ 나만의 추가 준비물 등록
+          </div>
+          <div class="add-custom-form">
+            <input type="text" id="custom-item-input" class="add-custom-input" placeholder="추가할 준비물을 입력하세요 (예: 삼각대, 목베개...)">
+            <button class="add-custom-btn" id="btn-add-custom">추가</button>
+          </div>
+        </div>
+
+        <!-- Reset / Restart Actions -->
+        <div class="result-footer-actions">
+          <button class="btn-primary" id="btn-finish-restart">
+            <span>새로운 여행 짐싸기</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
